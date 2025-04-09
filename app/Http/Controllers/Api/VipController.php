@@ -76,8 +76,6 @@ public function vip_level(Request $request)
     foreach ($activityRewards as $item) {
         $betRange = $item->betting_range;
         $percentage = $betRange ? number_format(($betAmount / $betRange) * 100, 2) : 0;
-
-        // Check and insert into vip_levels_claim if not existing
         $checkExist = DB::table('vip_levels_claim')
                         ->where('userid', $userid)
                         ->where('vip_levels_id', $item->id)

@@ -33,24 +33,70 @@
                     <a href="#apps-xy" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i><span>Bet History</span></a>
                     <ul class="collapse list-unstyled" id="apps-xy">
                         <li><a href="{{ route('All_bet_history.andarbahar') }}">Andar Bahar</a></li>
-                        <li><a href="#">Wingo</a></li>
-                        <li><a href="#">Mines</a></li>
-                        <li><a href="#">Dragon Tiger</a></li>
-                        <li><a href="#">Jhandi Munda</a></li>
-                        <li><a href="#">High Low</a></li>
-                        <li><a href="#">Red & Black</a></li>
-                        <li><a href="#">Mini Roullete</a></li>
-                        <li><a href="#">Hot Air Balloon</a></li>
-                        <li><a href="#">Aviator</a></li>
-                        <li><a href="#">Trx</a></li>
-                        <li><a href="#">Plinko</a></li>
-                        <li><a href="#">Head Tail</a></li>
-                        <li><a href="#">7 Up & 7 Down</a></li>
-                        <li><a href="#">Kino</a></li>
-                        <li><a href="#">Teen Patti</a></li>
-                        <li><a href="#">Jackpot</a></li>
+                        <li><a href="{{ route('All_bet_history.color') }}">Wingo</a></li>
+                        <li><a href="{{ route('All_bet_history.mines') }}">Mines</a></li>
+                        <li><a href="{{ route('All_bet_history.dragonTiger') }}">Dragon Tiger</a></li>
+                        <li><a href="{{ route('All_bet_history.jhandimunda') }}">Jhandi Munda</a></li>
+                        <li><a href="{{ route('All_bet_history.hilo') }}">High Low</a></li>
+                        <li><a href="{{ route('All_bet_history.redBlack') }}">Red & Black</a></li>
+                        <li><a href="{{ route('All_bet_history.miniRoullete') }}">Mini Roullete</a></li>
+                        <li><a href="{{ route('All_bet_history.hotairballoon') }}">Hot Air Balloon</a></li>
+                        <li><a href="{{ route('All_bet_history.aviator') }}">Aviator</a></li>
+                        <li><a href="{{ route('All_bet_history.trx') }}">Trx</a></li>
+                        <li><a href="{{ route('All_bet_history.plinko') }}">Plinko</a></li>
+                        <li><a href="{{ route('All_bet_history.headtail') }}">Head Tail</a></li>
+                        <li><a href="{{ route('All_bet_history.7updown') }}">7 Up & 7 Down</a></li>
+                        <li><a href="{{ route('All_bet_history.kino') }}">Kino</a></li>
+                        <li><a href="{{ route('All_bet_history.teenPatti') }}">Teen Patti</a></li>
+                        <li><a href="{{ route('All_bet_history.jackpot') }}">Jackpot</a></li>
                     </ul>
                 </li>
+                
+                <li>
+                    <a href="#saloni" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i><span>Bet Result</span></a>
+                    <ul class="collapse list-unstyled" id="saloni">
+                        <li><a href="{{ route('All_bet_result.ab') }}">Andar Bahar</a></li>
+                        <li><a href="{{ route('All_bet_result.wingo') }}">Wingo</a></li>
+                        <li><a href="{{ route('All_bet_result.mine') }}">Mines</a></li>
+                        <li><a href="{{ route('All_bet_result.dt') }}">Dragon Tiger</a></li>
+                        <li><a href="{{ route('All_bet_result.jm') }}">Jhandi Munda</a></li>
+                        <li><a href="{{ route('All_bet_result.hl') }}">High Low</a></li>
+                        <li><a href="{{ route('All_bet_result.rb') }}">Red & Black</a></li>
+                        <li><a href="{{ route('All_bet_result.mr') }}">Mini Roullete</a></li>
+                        <li><a href="{{ route('All_bet_result.hb') }}">Hot Air Balloon</a></li>
+                        <li><a href="{{ route('All_bet_result.av') }}">Aviator</a></li>
+                        <li><a href="{{ route('All_bet_result.tr') }}">Trx</a></li>
+                        <li><a href="{{ route('All_bet_result.plnko') }}">Plinko</a></li>
+                        <li><a href="{{ route('All_bet_result.ht') }}">Head Tail</a></li>
+                        <li><a href="{{ route('All_bet_result.updown') }}">7 Up & 7 Down</a></li>
+                        <li><a href="{{ route('All_bet_result.kn') }}">Kino</a></li>
+                        <li><a href="{{ route('All_bet_result.tp') }}">Teen Patti</a></li>
+                        <li><a href="{{ route('All_bet_result.jkpt') }}">Jackpot</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#gupta" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i><span>Admin Winner Result</span></a>
+                    <ul class="collapse list-unstyled" id="gupta">
+                        <li><a href="{{ route('adminWinner.ab1') }}">Andar Bahar</a></li>
+                        <li><a href="{{ route('adminWinner.wingo1') }}">Wingo</a></li>
+                        <li><a href="{{ route('adminWinner.mines1') }}">Mines</a></li>
+                        <li><a href="{{ route('adminWinner.dt1') }}">Dragon Tiger</a></li>
+                        <li><a href="{{ route('adminWinner.jm1') }}">Jhandi Munda</a></li>
+                        <li><a href="{{ route('adminWinner.hl1') }}">High Low</a></li>
+                        <li><a href="{{ route('adminWinner.rb1') }}">Red & Black</a></li>
+                        <li><a href="{{ route('adminWinner.mr1') }}">Mini Roullete</a></li>
+                        <li><a href="{{ route('adminWinner.hb1') }}">Hot Air Balloon</a></li>
+                        <li><a href="{{ route('adminWinner.aviator1') }}">Aviator</a></li>
+                        <li><a href="{{ route('adminWinner.trx1') }}">Trx</a></li>
+                        <li><a href="{{ route('adminWinner.plinko1') }}">Plinko</a></li>
+                        <li><a href="{{ route('adminWinner.ht1') }}">Head Tail</a></li>
+                        <li><a href="{{ route('adminWinner.updown1') }}">7 Up & 7 Down</a></li>
+                        <li><a href="{{ route('adminWinner.kino1') }}">Kino</a></li>
+                        <li><a href="{{ route('adminWinner.tp1') }}">Teen Patti</a></li>
+                        <li><a href="{{ route('adminWinner.jkpt1') }}">Jackpot</a></li>
+                    </ul>
+                </li>
+                
                 <!--admin winner result-->
                  <li><a href="{{route('gift')}}"><i class="fa fa-table purple_color2"></i> <span>Gift</span></a></li>
 				  <li><a href="{{route('giftredeemed')}}"><i class="fa fa-table purple_color2"></i> <span>Gift Redeemed History</span></a></li>

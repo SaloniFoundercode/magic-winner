@@ -13,18 +13,28 @@ Route::post('/add_money',[VipController::class,'receive_money']);
 
 
 Route::controller(PublicApiController::class)->group(function () {
+    Route::get('/all_game', 'all_game');
     Route::post('/otp-register',[PublicApiController::class,'otp_register']);
 	Route::get('/image_all','image_all');
     Route::post('/register', 'registers');
     Route::post('/check_number', 'check_existsnumber');
     Route::post('/login', 'login');
     Route::get('/profile/{id}', 'Profile');
-	Route::post('/update_profile','update_profile');
+	Route::get('/update_profile','update_profile');
     Route::get('/slider','slider_image_view');
     Route::post('/changepassword','changepassword');
-    // Route::post('/forget_Password','resetPassword');
+    Route::post('/forget_Password','forget');
     Route::post('/addAccount','addAccount');
-    Route::get('/accountView','accountView');
+    Route::post('/accountView','accountView');
+    Route::post('/level_getuserbyrefid','level_getuserbyrefid');
+    Route::post('/attendance_List','attendance_List');
+    Route::post('/attendance_history','attendance_history');
+    Route::post('/attendance_claim','attendance_claim');
+    Route::get('/contact_us','contact_us');
+    Route::get('/notification','notification');
+    Route::post('/add_favorite', 'add_fav_game');
+    Route::post('/get_favorite_game', 'fav_game');
+    Route::post('/delete_fav_game', 'delete_fav_game');
     // Route::post('/payin','payin');
     // Route::get('/checkPayment','checkPayment');
     // Route::get('/payin-successfully','redirect_success')->name('payin.successfully');
@@ -73,7 +83,7 @@ Route::controller(GameApiController::class)->group(function () {
     Route::get('/plinko_cron','plinko_cron');
     Route::post('/plinko_multiplier','plinko_multiplier'); 
 });
-    Route::controller(AviatorApiController::class)->group(function () {
+Route::controller(AviatorApiController::class)->group(function () {
     Route::get('/aviator_bet','aviatorBet');
     Route::post('/aviator_cashout','aviator_cashout');
     Route::post('/aviator_history','aviator_history');
@@ -81,116 +91,113 @@ Route::controller(GameApiController::class)->group(function () {
     Route::get('/aviator_bet_cancel','bet_cancel');
     Route::get('/result_half_new','result_half_new');
     Route::post('/result_insert_new','result_insert_new');
-    });
-
-    Route::controller(SalaryApiController::class)->group(function () {
-        // Route::get('/aviator_salary', 'aviator_salary');
-        Route::get('/daily_bonus','dailyBonus');
-    	Route::get('/monthly_bonus','monthlyBonus');
-    });
+});
+Route::controller(SalaryApiController::class)->group(function () {
+    // Route::get('/aviator_salary', 'aviator_salary');
+    Route::get('/daily_bonus','dailyBonus');
+	Route::get('/monthly_bonus','monthlyBonus');
+});
     Route::post('/usdt_payin',[PublicApiController::class,'payin_usdt']);
-    // Route::post('/payin_call_back',[PublicApiController::class,'payin_call_back']);
-    // Route::get('/end_user_register',[TestJilliController::class,'end_user_register']);
-    // Route::get('/get_all_game_list',[TestJilliController::class,'get_all_game_list']);
-    // Route::get('/get_game_url_gameid',[TestJilliController::class,'get_game_url_gameid']);
-    // Route::get('/add_amount_to_user',[TestJilliController::class,'transfer_amount_to_user']);
-    // Route::get('/get_jilli_transaction_details',[TestJilliController::class,'get_jilli_transaction_details']);
-    // Route::get('/wallet_deduct_from_user',[TestJilliController::class,'wallet_deduct_from_user']);
-    // Route::get('/get_bet_history',[TestJilliController::class,'get_bet_history']);
-    // Route::get('/get_reseller_info',[TestJilliController::class,'get_reseller_info']);
-    // Route::post('/user_register',[ZiliApiController::class,'user_register']);
-    // Route::post('/all_game_list',[ZiliApiController::class,'all_game_list']);
-    // Route::post('/all_game_list_test',[ZiliApiController::class,'all_game_list_test']);
-    // Route::post('/get_game_url',[ZiliApiController::class,'get_game_url']);
-    // Route::post('/get_jilli_transactons_details',[ZiliApiController::class,'get_jilli_transactons_details']);
-    // Route::post('/jilli_deduct_from_wallet',[ZiliApiController::class,'jilli_deduct_from_wallet']);
-    // Route::post('/jilli_get_bet_history',[ZiliApiController::class,'jilli_get_bet_history']);
-    // Route::post('/add_in_jilli_wallet ',[ZiliApiController::class,'add_in_jilli_wallet']);
-    // Route::post('/update_main_wallet ',[ZiliApiController::class,'update_main_wallet']);
-    // Route::post('/get_jilli_wallet ',[ZiliApiController::class,'get_jilli_wallet']);
-    // Route::post('/update_jilli_wallet ',[ZiliApiController::class,'update_jilli_wallet']);
-    // Route::post('/update_jilli_to_user_wallet ',[ZiliApiController::class,'update_jilli_to_user_wallet']);
-
-
-    // Route::get('/test_get_user_info ',[ZiliApiController::class,'test_get_user_info']);
-    // Route::get('/get-reseller-info/{manager_key?}',[ZiliApiController::class,'get_reseller_info']);
-    // Route::controller(SpribeApiController::class)->group(function () {
-    //     Route::get('/get_reseller_info', 'get_reseller_info');
-    //     Route::post('/get_spribe_game_urls','get_spribe_game_urls');
-    // 	Route::post('/spribe_betting_history','spribe_betting_history');
-    // 	Route::post('/spribe_all_betting_history','spribe_all_betting_history');
-    // 	Route::post('/sprb/spribe/callback','handleCallback');
-    // 	Route::post('/spribe_user_register','spribe_user_register'); 
-    // 	Route::post('/spribe_transactons_details','spribe_transactons_details'); 
-    // 	Route::post('/scribe_deduct_from_wallet','scribe_deduct_from_wallet');
-    // 	Route::post('/get_spribe_wallet ','get_spribe_wallet');
-    // 	Route::post('/add_in_spribe_wallet ','add_in_spribe_wallet');
-    // 	Route::post('/update_spribe_wallet ','update_spribe_wallet');
-    // 	Route::post('/update_spribe_to_user_wallet ','update_spribe_to_user_wallet');
-    // });
-    Route::controller(MiniRoulleteController::class)->group(function(){
-        Route::post('mini-bet', 'mini_bets');
-        Route::post('bet-history', 'bet_history');
-        Route::post('mini_results', 'mini_results');
-        Route::get('mini_cron/{game_id}','mini_cron');
-        Route::post('win-amount', 'win_amount');
-     });
-    Route::controller(HighLowgameApiController::class)->group(function () {
-        Route::post('/high_low_bet', 'high_low_bet');
-        Route::get('/high_low_results','high_low_results');
-          Route::get('/high_low_win_amount','high_low_win_amount');
-        Route::get('/high_low_bet_history','high_low_bet_history');
-        Route::get('/high_low_cron/{game_id}/','high_low_cron');
-    });
-    Route::controller(TeenPattiController::class)->group(function(){
+// Route::post('/payin_call_back',[PublicApiController::class,'payin_call_back']);
+// Route::get('/end_user_register',[TestJilliController::class,'end_user_register']);
+// Route::get('/get_all_game_list',[TestJilliController::class,'get_all_game_list']);
+// Route::get('/get_game_url_gameid',[TestJilliController::class,'get_game_url_gameid']);
+// Route::get('/add_amount_to_user',[TestJilliController::class,'transfer_amount_to_user']);
+// Route::get('/get_jilli_transaction_details',[TestJilliController::class,'get_jilli_transaction_details']);
+// Route::get('/wallet_deduct_from_user',[TestJilliController::class,'wallet_deduct_from_user']);
+// Route::get('/get_bet_history',[TestJilliController::class,'get_bet_history']);
+// Route::get('/get_reseller_info',[TestJilliController::class,'get_reseller_info']);
+// Route::post('/user_register',[ZiliApiController::class,'user_register']);
+// Route::post('/all_game_list',[ZiliApiController::class,'all_game_list']);
+// Route::post('/all_game_list_test',[ZiliApiController::class,'all_game_list_test']);
+// Route::post('/get_game_url',[ZiliApiController::class,'get_game_url']);
+// Route::post('/get_jilli_transactons_details',[ZiliApiController::class,'get_jilli_transactons_details']);
+// Route::post('/jilli_deduct_from_wallet',[ZiliApiController::class,'jilli_deduct_from_wallet']);
+// Route::post('/jilli_get_bet_history',[ZiliApiController::class,'jilli_get_bet_history']);
+// Route::post('/add_in_jilli_wallet ',[ZiliApiController::class,'add_in_jilli_wallet']);
+// Route::post('/update_main_wallet ',[ZiliApiController::class,'update_main_wallet']);
+// Route::post('/get_jilli_wallet ',[ZiliApiController::class,'get_jilli_wallet']);
+// Route::post('/update_jilli_wallet ',[ZiliApiController::class,'update_jilli_wallet']);
+// Route::post('/update_jilli_to_user_wallet ',[ZiliApiController::class,'update_jilli_to_user_wallet']);
+// Route::get('/test_get_user_info ',[ZiliApiController::class,'test_get_user_info']);
+// Route::get('/get-reseller-info/{manager_key?}',[ZiliApiController::class,'get_reseller_info']);
+// Route::controller(SpribeApiController::class)->group(function () {
+//     Route::get('/get_reseller_info', 'get_reseller_info');
+//     Route::post('/get_spribe_game_urls','get_spribe_game_urls');
+// 	Route::post('/spribe_betting_history','spribe_betting_history');
+// 	Route::post('/spribe_all_betting_history','spribe_all_betting_history');
+// 	Route::post('/sprb/spribe/callback','handleCallback');
+// 	Route::post('/spribe_user_register','spribe_user_register'); 
+// 	Route::post('/spribe_transactons_details','spribe_transactons_details'); 
+// 	Route::post('/scribe_deduct_from_wallet','scribe_deduct_from_wallet');
+// 	Route::post('/get_spribe_wallet ','get_spribe_wallet');
+// 	Route::post('/add_in_spribe_wallet ','add_in_spribe_wallet');
+// 	Route::post('/update_spribe_wallet ','update_spribe_wallet');
+// 	Route::post('/update_spribe_to_user_wallet ','update_spribe_to_user_wallet');
+// });
+Route::controller(MiniRoulleteController::class)->group(function(){
+    Route::post('mini-bet', 'mini_bets');
+    Route::post('bet-history', 'bet_history');
+    Route::post('mini_results', 'mini_results');
+    Route::get('mini_cron/{game_id}','mini_cron');
+    Route::post('win-amount', 'win_amount');
+});
+Route::controller(HighLowgameApiController::class)->group(function () {
+    Route::post('/high_low_bet', 'high_low_bet');
+    Route::get('/high_low_results','high_low_results');
+      Route::get('/high_low_win_amount','high_low_win_amount');
+    Route::get('/high_low_bet_history','high_low_bet_history');
+    Route::get('/high_low_cron/{game_id}/','high_low_cron');
+});
+Route::controller(TeenPattiController::class)->group(function(){
         Route::post('bet-result','teenPatti_results'); 
         Route::post('bet','bets'); 
         Route::post('bethistory', 'bet_history');
         Route::get('teen-patti-cron/{game_id}/','teen_patti_cron');
         Route::post('teen-patti-win-amt','teen_patti_win_amt');
      });
-    Route::controller(KenoGameController::class)->group(function(){
-        Route::post('keno-bet', 'bets');
-        Route::get('keno-cron/{game_id}/','keno_cron');
-        Route::post('/keno_result','keno_result');
-        Route::post('keno-bet-history', 'bet_history');
-        Route::post('/keno_multiplier', 'keno_multipliers');
-        Route::post('keno-win-amount', 'keno_win_amount');
-    });
+Route::controller(KenoGameController::class)->group(function(){
+    Route::post('keno-bet', 'bets');
+    Route::get('keno-cron/{game_id}/','keno_cron');
+    Route::post('/keno_result','keno_result');
+    Route::post('keno-bet-history', 'bet_history');
+    Route::post('/keno_multiplier', 'keno_multipliers');
+    Route::post('keno-win-amount', 'keno_win_amount');
+});
     Route::controller(RedBlackController::class)->group(function(){
         Route::get('/result','results');
         Route::post('/rb_bets', 'rb_bets');
         Route::post('/win_amount', 'win_amount');
         Route::get('/bet_history' ,'bet_history'); 
     });
-    Route::controller(JackpotController::class)->group(function(){
-        Route::post('/jackpot-bet', 'jackpot_bet');
-        Route::get('jackpot_cron/{game_id}','jackpot_cron');
-        Route::post('/jackpot_results', 'jackpot_results');
-        Route::post('/jack_five_result','jack_five_result');
-        Route::post('/jackpot_history', 'jackpot_history');
-        Route::post('/win_amount', 'win_amount');
-    });
-    Route::controller(HeadTailController::class)->group(function(){
-        Route::post('/headtail-bet', 'headtail_bet');
-        Route::get('headtail_cron/{game_id}','headtail_cron');
-        Route::post('/headtail_results', 'headtail_results');
-        Route::post('/headtail_five_result','headtail_five_result');
-        Route::post('/headtail_history', 'headtail_history');
-        Route::post('/headtail_win_amount', 'headtail_win_amount');
-    });
+Route::controller(JackpotController::class)->group(function(){
+    Route::post('/jackpot-bet', 'jackpot_bet');
+    Route::get('jackpot_cron/{game_id}','jackpot_cron');
+    Route::post('/jackpot_results', 'jackpot_results');
+    Route::post('/jack_five_result','jack_five_result');
+    Route::post('/jackpot_history', 'jackpot_history');
+       Route::post('/win_amount', 'win_amount');
+});
+Route::controller(HeadTailController::class)->group(function(){
+    Route::post('/headtail-bet', 'headtail_bet');
+    Route::get('headtail_cron/{game_id}','headtail_cron');
+    Route::post('/headtail_results', 'headtail_results');
+    Route::post('/headtail_five_result','headtail_five_result');
+    Route::post('/headtail_history', 'headtail_history');
+    Route::post('/headtail_win_amount', 'headtail_win_amount');
+});
     //jackpot testing
     Route::controller(Jckpt2Controller::class)->group(function(){
         Route::post('/jack-bet', 'jack_bet');
         Route::get('jack_cron/{game_id}', 'jack_cron');
     });
     //Hot Air Balloon
-     Route::controller(HotAirBalloonController::class)->group(function (){
-     Route::post('/balloon_bet','balloon_bet');
-     Route::get('/balloon_history' , 'balloon_history');
-     Route::get('/hot_last_five_result' , 'last_five_result');
-     Route::post('/balloon_bet_cancle' , 'balloon_bet_cancle');
-     Route::get('get-image','get_image');
-     Route::post('balloon-cashout','balloon_cashout');
-     Route::post('update-image','post_image');
- });
+    Route::controller(HotAirBalloonController::class)->group(function (){
+    Route::post('/balloon_bet','balloon_bet');
+    Route::get('/balloon_history' , 'balloon_history');
+    Route::get('/hot_last_five_result' , 'last_five_result');
+    Route::post('/balloon_bet_cancle' , 'balloon_bet_cancle');
+    Route::get('get-image','get_image');
+    Route::post('balloon-cashout','balloon_cashout');
+    Route::post('update-image','post_image');
+});

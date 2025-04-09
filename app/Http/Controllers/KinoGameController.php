@@ -54,7 +54,7 @@ class KinoGameController extends Controller
     }
 
     // This method handles admin winner submission
-    public function admin_winner(Request $request)
+    public function update_winner(Request $request)
     {
         $request->validate([
             'selections' => 'required|array',

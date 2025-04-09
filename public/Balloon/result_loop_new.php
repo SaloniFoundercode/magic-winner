@@ -35,7 +35,7 @@ $game_sr = $input['game_sr'];
 $adminpercent = $input['adminpercent'];
 $multiplier = $input['adminmultiply'];
 
- $q = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(`win`) AS total_win FROM `balloon_bet` WHERE `game_sr_num` = '$game_sr' AND `game_id` = '27' limit 1"));
+ $q = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(`win`) AS total_win FROM `balloon_bet` WHERE `game_sr_num` = '$game_sr' AND `game_id` = '25' limit 1"));
 
 
 

@@ -18,7 +18,7 @@ class HotAirBalloonController extends Controller
 		    'uid'=>'required|exists:users,id',
 		    'number'=>'required',
 		    'amount'=>'required',
-		    'game_id'=>'required|in:27',
+		    'game_id'=>'required|in:25',
 		    'game_sr_num'=>'required'
 		   ]);
           
@@ -39,7 +39,7 @@ class HotAirBalloonController extends Controller
 		$stop_multiplier = 0;
 	}
 	$sr_num_bet = DB::table('balloon_bet')
-	 ->where('game_id',27)
+	 ->where('game_id',25)
 	  ->where('number',$number)
 	 ->where('game_sr_num',$sr_num)
 	 ->where('uid',$uid)
@@ -84,7 +84,7 @@ class HotAirBalloonController extends Controller
 				}		
 			}
 		    $datetime = date('Y-m-d h:i:s');
-		    $betting_fee = DB::table('admin_settings')->where('id', 10)->first();
+		    $betting_fee = DB::table('business_settings')->where('id', 10)->first();
 			$percentage_bet =  $betting_fee->longtext;
 		    $commission  = $amount*$percentage_bet;
 		    $amounttrade = $amount-$commission;
@@ -135,22 +135,24 @@ class HotAirBalloonController extends Controller
         $multiplier = $requests->multiplier;
         $game_sr_num = $requests->game_sr_num;
         $number = $requests->number;
-    
+        $amount_trade = $requests->totalamount;
+    dd($amount_trade);
         $bet_details = DB::table('balloon_bet')
             ->where('game_sr_num', $game_sr_num)
-            ->where('game_id', 27) 
+            ->where('game_id', 25) 
             ->where('uid', $uid)
             ->where('number', $number)
             ->where('status', 0)
             ->where('result_status', 0)
             ->first();
+            // dd($bet_details);
         $amount_trade = $bet_details->totalamount;
         // dd($amount_trade);
         $win_amount = $amount_trade * $multiplier;
         $update = DB::table('balloon_bet')
             ->where('uid', $uid)
             ->where('number', $number)
-            ->where('game_id', 27) 
+            ->where('game_id', 25) 
             ->where('status', 0)
             ->where('game_sr_num', $game_sr_num)
             ->where('result_status', 0)
@@ -165,7 +167,7 @@ class HotAirBalloonController extends Controller
                 'winning_wallet' => DB::raw('winning_wallet + ' . $win_amount),
                 'wallet' => DB::raw('wallet + ' . $win_amount),
             ]);
-            $wallet_history = DB::table('wallet_history')->insert([
+            $wallet_history = DB::table('wallet_histories')->insert([
                 'userid' => $uid,
                 'amount' => $win_amount,
                 'subtypeid' => 24,

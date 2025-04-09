@@ -34,8 +34,7 @@ class GameApiController extends Controller
     $userid = $request->userid;
     $gameid = $request->game_id;
   // $gameno = $request->game_no;
- 
-  $orderid = date('YmdHis') . rand(11111, 99999);
+    $orderid = date('YmdHis') . rand(11111, 99999);
     
     $gamesrno=DB::select("SELECT games_no FROM `betlogs` WHERE `game_id`=$gameid  LIMIT 1");
     $gamesno=$gamesrno[0]->games_no;
@@ -190,7 +189,7 @@ class GameApiController extends Controller
         }
     
         $datetime = now();
-        $testData = json_decode($request->json, true); // Decode JSON string to array
+        $testData = json_decode($request->json, true);
         $user = User::find($request->userid);
         $gameId = $request->game_id;
     
@@ -799,13 +798,39 @@ class GameApiController extends Controller
             Log::error('Error in dragonTiger function: ' . $e->getMessage());
         }
     }
-
+    //new saloooniiii
+    // private function dragon_tiger($game_id, $period, $result)
+    // {
+    //     try {
+    //         // Wrap result in array and encode to JSON
+    //         $resJson = json_encode([$result]);
+    
+    //         // Insert into bet_results table
+    //         BetResult::create([
+    //             'number' => $result,
+    //             'games_no' => $period,
+    //             'game_id' => $game_id,
+    //             'status' => 1,
+    //             'json' => $resJson,
+    //         ]);
+    
+    //         // Amount distribution logic
+    //         $this->amountDistributionColors($game_id, $period, $result);
+    
+    //         // Reset betlogs
+    //         Betlog::where('game_id', $game_id)
+    //             ->update(['amount' => 0, 'games_no' => DB::raw('games_no + 1')]);
+    
+    //     } catch (\Exception $e) {
+    //         \Log::error('Error in dragon_tiger: ' . $e->getMessage());
+    //     }
+    // }
     private function amountdistributioncolors($game_id, $period, $result)
     {
         $virtualGames = VirtualGame::where('actual_number', $result)
-            ->where('game_id', $game_id)
-            ->where(function ($query) {
-                $query->where('type', '!=', 1)->where('multiplier', '!=', '1.5')
+        ->where('game_id', $game_id)
+        ->where(function ($query) {
+        $query->where('type', '!=', 1)->where('multiplier', '!=', '1.5')
                       ->orWhere(function ($query) {
                           $query->where('type', 1)->where('multiplier', '1.5');
                       });

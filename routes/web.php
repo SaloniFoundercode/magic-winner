@@ -3,37 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
-
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CreateorderController;
-// use App\Http\Controllers\WorkassignController;
-use App\Http\Controllers\ProjectmaintenanceController;
-use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\RevenueController;  
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\TrxAdminController;
-
-use App\Http\Controllers\GiftController;
-use App\Http\Controllers\PlinkoController;
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\{SettingController,BusinessSettingController};
-use App\Http\Controllers\DepositController;
-use App\Http\Controllers\WidthdrawlController;
-
-use App\Http\Controllers\AdminPayinController;
-
+use App\Http\Controllers\{SettingController,BusinessSettingController,FeedbackController,AttendanceController,GiftController,ComplaintController,ProjectmaintenanceController};
+use App\Http\Controllers\{AdminPayinController,WidthdrawlController,DepositController,RevenueController,CreateorderController,OrderController};
 use App\Http\Controllers\MlmlevelController;
-use App\Http\Controllers\ColourPredictionController;
-use App\Http\Controllers\AdminSettingController; 
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\AllBetHistoryController;
-use App\Http\Controllers\FirstDepositBonusController;
-use App\Http\Controllers\UsdtController;
-use App\Http\Controllers\UsdtDepositController;
-use App\Http\Controllers\UsdtWidthdrawController;
-use App\Http\Controllers\SalaryController;
-use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailController};
+use App\Http\Controllers\{AllBetHistoryController,AllBetResultController};
+use App\Http\Controllers\{FirstDepositBonusController,UsdtController,UsdtDepositController,UsdtWidthdrawController,SalaryController,BannerController,UserController};
+use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailController,ColourPredictionController,PlinkoController,TrxAdminController,AdminWinnerController};
 
     Route::get('/aviator/{game_id}',[AviatorAdminController::class, 'aviator_prediction_create'])->name('result');
 	Route::get('/aviator_fetchs/{game_id}', [AviatorAdminController::class, 'aviator_fetchDatacolor'])->name('aviator_fetch_data');
@@ -48,57 +23,55 @@ use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailCont
     Artisan::call('view:clear');
     return "Cleared!";
     });
-    Route::get('/',[LoginController::class,'login'])->name('login');
-    Route::post('/login',[LoginController::class,'auth_login'])->name('auth.login');
-    Route::get('/dashboard',[LoginController::class,'dashboard'])->name('dashboard');
-    Route::get('/get-reseller-info',[LoginController::class,'get_reseller_info']);
-    Route::get('/trx/{gameid}',[TrxAdminController::class, 'trx_create'])->name('trx');
-	Route::get('/fetch/{gameid}', [TrxAdminController::class, 'fetchData'])->name('fetch_data');
-    Route::post('/trx-store',[TrxAdminController::class, 'store'])->name('trx.store');
-    Route::post('/percentage-update', [TrxAdminController::class, 'update'])->name('percentage.update');
-    Route::get('/register',[LoginController::class,'register_create'])->name('register');
-    Route::post('/register',[LoginController::class,'register_store'])->name('register.store');
-    Route::get('/auth-logout',[LoginController::class,'logout'])->name('auth.logout');
-    Route::get('/change_password',[LoginController::class,'password_index'])->name('change_password');
-    Route::post('/change_password',[LoginController::class,'password_change'])->name('change_pass.update');
+    Route::controller(LoginController::class)->group(function(){
+        Route::get('/','login')->name('login');
+        Route::post('/login','auth_login')->name('auth.login');
+        Route::get('/dashboard','dashboard')->name('dashboard');
+        Route::get('/get-reseller-info','get_reseller_info');
+        Route::get('/register','register_create')->name('register');
+        Route::post('/register','register_store')->name('register.store');
+        Route::get('/auth-logout','logout')->name('auth.logout');
+        Route::get('/change_password','password_index')->name('change_password');
+        Route::post('/change_password','password_change')->name('change_pass.update');
+    });
     Route::any('/admin_payin-{id}',[AdminPayinController::class,'admin_payin'])->name('admin_payin.store');
     Route::get('/gift-index',[GiftController::class, 'index'])->name('gift');
     Route::post('/gift-store',[GiftController::class, 'gift_store'])->name('gift.store');
     Route::get('/giftredeemed',[GiftController::class, 'giftredeemed'])->name('giftredeemed');
     Route::get('/gift/delete/{id}',[GiftController::class, 'GiftDelete'])->name('gift.delete');
-
-   //Banner
-    Route::get('/banner-index',[BannerController::class, 'index'])->name('banner');
-    Route::post('/banner-store',[BannerController::class, 'banner_store'])->name('banner.store');
-    Route::get('/banner-delete-{id}',[BannerController::class, 'banner_delete'])->name('banner.delete');
-    Route::post('/banner-update-{id}', [BannerController::class, 'banner_update'])->name('banner.update');  
+    
+    Route::controller(BannerController::class)->group(function(){
+        Route::get('/banner-index','index')->name('banner');
+        Route::post('/banner-store', 'banner_store')->name('banner.store');
+        Route::get('/banner-delete-{id}','banner_delete')->name('banner.delete');
+        Route::post('/banner-update-{id}', 'banner_update')->name('banner.update');
+   });
+     
     
     Route::get('/attendance',[AttendanceController::class, 'attendance'])->name('attendance.index');
     Route::post('/attendance',[AttendanceController::class, 'attendance_store'])->name('attendance.store');
     Route::get('/attendance-delete-{id}',[AttendanceController::class, 'attendance_delete'])->name('attendance.delete');
     Route::post('/attendance-update-{id}', [AttendanceController::class, 'attendance_update'])->name('attendance.update');
-    
-    
-    Route::any('/users',[UserController::class, 'user_create'])->name('users');
-    Route::any('/block/user/list',[UserController::class, 'BlockUserList'])->name('block.user.list');
-    Route::get('/user_detail-{id}',[UserController::class,'user_details'])->name('userdetail');
-    Route::post('/password-update-{id}', [UserController::class, 'password_update'])->name('password.update');
-    //  Route::post('/users',[UserController::class, 'user_store'])->name('users.store');
-    Route::get('/users-delete-{id}',[UserController::class, 'delete'])->name('users.destroy');
-    Route::get('/users-active-{id}', [UserController::class,'user_active'])->name('user.active');
-    Route::get('/users-inactive-{id}',[UserController::class, 'user_inactive'])->name('user.inactive');
-    Route::post('/wallet-store-{id}',[UserController::class, 'wallet_store'])->name('wallet.store');
-	Route::post('/wallet/subtract/{id}', [UserController::class, 'wallet_subtract'])->name('wallet.subtract');
-
-    Route::post('/password-store-{id}',[UserController::class, 'password_store'])->name('password.store');
-	Route::get('/users-mlm-{id}',[UserController::class, 'user_mlm'])->name('user.mlm');
-	
-	Route::get('/registerwithref/{id}',[UserController::class,'registerwithref'])->name('registerwithref');
-	Route::post('/register_store-{referral_code}',[UserController::class,'register_store'])->name('user_register');
-    Route::get('/colour_prediction/{gameid}',[ColourPredictionController::class, 'colour_prediction_create'])->name('colour_prediction');
-	Route::get('/fetch/{gameid}', [ColourPredictionController::class, 'fetchData'])->name('fetch_data');
-    Route::post('/colour_prediction-store',[ColourPredictionController::class, 'store'])->name('colour_prediction.store');
-    Route::post('/colour_percentage-update', [ColourPredictionController::class, 'update'])->name('colour_percentage.update');
+	Route::controller(UserController::class)->group(function(){
+	   	Route::get('/registerwithref/{id}','registerwithref')->name('registerwithref');
+	    Route::post('/register_store-{referral_code}','register_store')->name('user_register');
+	    Route::any('/users','user_create')->name('users');
+        Route::any('/block/user/list','BlockUserList')->name('block.user.list');
+        Route::get('/user_detail-{id}','user_details')->name('userdetail');
+        Route::post('/password-update-{id}', 'password_update')->name('password.update');
+        //  Route::post('/users',[UserController::class, 'user_store'])->name('users.store');
+        Route::get('/users-delete-{id}','delete')->name('users.destroy');
+        Route::get('/users-active-{id}','user_active')->name('user.active');
+        Route::get('/users-inactive-{id}','user_inactive')->name('user.inactive');
+        Route::post('/wallet-store-{id}', 'wallet_store')->name('wallet.store');
+    	Route::post('/wallet/subtract/{id}','wallet_subtract')->name('wallet.subtract');
+        Route::post('/password-store-{id}', 'password_store')->name('password.store');
+    	Route::get('/users-mlm-{id}','user_mlm')->name('user.mlm');
+	});
+//     Route::get('/colour_prediction/{gameid}',[ColourPredictionController::class, 'colour_prediction_create'])->name('colour_prediction');
+// 	Route::get('/fetch/{gameid}', [ColourPredictionController::class, 'fetchData'])->name('fetch_data');
+//     Route::post('/colour_prediction-store',[ColourPredictionController::class, 'store'])->name('colour_prediction.store');
+//     Route::post('/colour_percentage-update', [ColourPredictionController::class, 'update'])->name('colour_percentage.update');
     Route::post('/category',[CategoryController::class, 'category_store'])->name('category.store');
     Route::get('/category-active-{id}', [CategoryController::class,'category_active'])->name('category.active');
     Route::get('/category-inactive-{id}',[CategoryController::class, 'category_inactive'])->name('category.inactive');
@@ -129,19 +102,15 @@ use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailCont
     Route::get('/setting-inactive-{id}',[SettingController::class, 'setting_inactive'])->name('setting.inactive');
     Route::get('/setting-delete-{id}',[SettingController::class, 'setting_delete'])->name('setting.delete');
     Route::post('/setting-update-{id}', [SettingController::class, 'setting_update'])->name('setting.update');
-    
     Route::get('/support_setting',[SettingController::class,'support_setting'])->name('support_setting');
     Route::post('/supportsetting-update-{id}', [SettingController::class, 'supportsetting_update'])->name('supportsetting.update');
-    
     Route::get('/notification',[SettingController::class,'notification'])->name('notification');
     Route::get('/view_notification-{id}',[SettingController::class,'view_notification'])->name('view_notification');
     Route::post('/notification-update-{id}', [SettingController::class, 'notification_update'])->name('notification.update');
     Route::post('/notification_store', [SettingController::class, 'notification_store'])->name('notification_store');
     Route::get('/add_notification',[SettingController::class,'add_notification'])->name('add_notification');
     Route::get('/notification-delete-{id}',[SettingController::class,'notification_delete'])->name('notification.delete');
-    
     Route::Post('/bussinessSetting/update/{id}',[SettingController::class,'BusinessSetting'])->name('BusinessSetting.update');
-    
     Route::get('/deposit-{id}',[DepositController::class,'deposit_index'])->name('deposit');
     Route::post('/deposit',[DepositController::class,'deposit_store'])->name('deposit.store');
     Route::get('/deposit-active-{id}', [DepositController::class,'deposit_active'])->name('deposit.active');
@@ -174,14 +143,10 @@ use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailCont
     Route::get('/revenue-delete-{id}',[RevenueController::class, 'revenue_delete'])->name('revenue.delete');
     Route::post('/revenue-update-{id}', [RevenueController::class, 'revenue_update'])->name('revenue.update');
     Route::get('/plinko-index',[PlinkoController::class, 'index'])->name('plinko');
-
-    // Route::get('/all_bet_history/{id}',[AllBetHistoryController::class, 'all_bet_history'])->name('all_bet_history');
-
     Route::get('/usdt_deposit/{id}',[UsdtDepositController::class,'usdt_deposit_index'])->name('usdt_deposit');
     Route::post('/usdt_deposit',[UsdtDepositController::class,'usdt_deposit_store'])->name('usdt_deposit.store');
     Route::get('/usdt_success/{id}',[UsdtDepositController::class,'usdt_success'])->name('usdt_success');
     Route::get('/usdt_reject/{id}',[UsdtDepositController::class,'usdt_reject'])->name('usdt_reject');
-
     Route::get('/usdt_deposit-active-{id}', [UsdtDepositController::class,'usdt_deposit_active'])->name('usdt_deposit.active');
     Route::get('/usdt_deposit-inactive-{id}',[UsdtDepositController::class, 'usdt_deposit_inactive'])->name('usdt_deposit.inactive');
     Route::get('/usdt_deposit-delete-{id}',[UsdtDepositController::class, 'usdt_deposit_delete'])->name('usdt_deposit.delete');
@@ -214,6 +179,41 @@ use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailCont
     });
     Route::controller(AllBetHistoryController::class)->group(function(){
         Route::get('andarbahar', 'andarbahar')->name('All_bet_history.andarbahar');
+        Route::get('wingo', 'wingo')->name('All_bet_history.color');
+        Route::get('trx', 'trx')->name('All_bet_history.trx');
+        Route::get('mines', 'mines')->name('All_bet_history.mines');
+        Route::get('dragontiger', 'dragontiger')->name('All_bet_history.dragonTiger');
+        Route::get('jhandimunda', 'jhandimunda')->name('All_bet_history.jhandimunda');
+        Route::get('hilo', 'hilo')->name('All_bet_history.hilo');
+        Route::get('redBlack', 'redBlack')->name('All_bet_history.redBlack');
+        Route::get('miniRoullete', 'miniRoullete')->name('All_bet_history.miniRoullete');
+        Route::get('hotairballoon', 'hotairballoon')->name('All_bet_history.hotairballoon');
+        Route::get('aviator', 'aviator')->name('All_bet_history.aviator');
+        Route::get('plinko', 'plinko')->name('All_bet_history.plinko');
+        Route::get('headtail', 'headtail')->name('All_bet_history.headtail');
+        Route::get('7updown', 'updown')->name('All_bet_history.7updown');
+        Route::get('kino', 'kino')->name('All_bet_history.kino');
+        Route::get('teenPatti', 'teenPatti')->name('All_bet_history.teenPatti');
+        Route::get('jackpot', 'jackpot')->name('All_bet_history.jackpot');
+    });
+    Route::controller(AllBetResultController::class)->group(function(){
+        Route::get('andarbahar_result', 'andarbahar_result')->name('All_bet_result.ab');
+        Route::get('wingo_result', 'wingo_result')->name('All_bet_result.wingo');
+        Route::get('trx_result', 'trx_result')->name('All_bet_result.tr');
+        Route::get('mines_result_result', 'mines_result')->name('All_bet_result.mine');
+        Route::get('dragontiger_result', 'dragontiger_result')->name('All_bet_result.dt');
+        Route::get('jhandimunda_result', 'jhandimunda_result')->name('All_bet_result.jm');
+        Route::get('hilo_result', 'hilo_result')->name('All_bet_result.hl');
+        Route::get('redBlack_result', 'redBlack_result')->name('All_bet_result.rb');
+        Route::get('miniRoullete_result', 'miniRoullete_result')->name('All_bet_result.mr');
+        Route::get('hotairballoon_result', 'hotairballoon_result')->name('All_bet_result.hb');
+        Route::get('aviator_result', 'aviator_result')->name('All_bet_result.av');
+        Route::get('plinko_result', 'plinko_result')->name('All_bet_result.plnko');
+        Route::get('headtail_result', 'headtail_result')->name('All_bet_result.ht');
+        Route::get('7updown_result', 'updown_result')->name('All_bet_result.updown');
+        Route::get('kino_result', 'kino_result')->name('All_bet_result.kn');
+        Route::get('teenPatti_result', 'teenPatti_result')->name('All_bet_result.tp');
+        Route::get('jackpot_result', 'jackpot_result')->name('All_bet_result.jkpt');
     });
     Route::controller(BusinessSettingController::class)->group(function(){
         Route::get('/businessSetting-index','businessSetting_index')->name('businessSetting.index');
@@ -227,4 +227,34 @@ use App\Http\Controllers\{AviatorAdminController,KinoGameController,HeadTailCont
     Route::controller(HeadTailController::class)->group(function (){
         Route::post('head_tail_result', 'add_winner')->name('head_tail.add');
         Route::get('/admin-result', 'head_tail_result')->name('head_tail.index');
+    });
+    Route::controller(AdminWinnerController::class)->group(function (){
+        Route::get('ab_winner', 'ab_winner')->name('adminWinner.ab1');
+        Route::post('andar_bahar', [AdminWinnerController::class, 'addWinner'])->name('adminWinner.addAB');
+        
+        Route::get('wingo_winner', 'wingo_winner')->name('adminWinner.wingo1');
+        Route::post('result_add', [AdminWinnerController::class, 'allWingo'])->name('adminWinner.addWingo1');
+        
+        Route::get('trx_winner', 'trx_winner')->name('adminWinner.trx1');
+
+        Route::get('mines_winner', 'mines_winner')->name('adminWinner.mines1');
+        
+        Route::get('dt_winner', 'dt_winner')->name('adminWinner.dt1');
+        Route::post('result_add', 'dtWinner')->name('adminWinner.dtWinner');
+        
+        Route::get('jm_winner', 'jm_winner')->name('adminWinner.jm1');
+        Route::get('hilo_winner', 'hilo_winner')->name('adminWinner.hl1');
+        Route::get('rb_winner', 'rb_winner')->name('adminWinner.rb1');
+        Route::get('mr_winner', 'mr_winner')->name('adminWinner.mr1');
+        Route::get('hb_winner', 'hb_winner')->name('adminWinner.hb1');
+        Route::get('aviator_winner', 'aviator_winner')->name('adminWinner.aviator1');
+        Route::get('plinko_winner', 'plinko_winner')->name('adminWinner.plinko1');
+        Route::get('ht_winner', 'ht_winner')->name('adminWinner.ht1');
+        Route::get('updown_winner', 'updown_winner')->name('adminWinner.updown1');
+        
+        Route::get('kino_winner', 'kino_winner')->name('adminWinner.kino1');
+        Route::post('result', 'update_winner')->name('adminWinner.add');
+        
+        Route::get('tp_winner', 'tp_winner')->name('adminWinner.tp1');
+        Route::get('jckpt_winner', 'jckpt_winner')->name('adminWinner.jkpt1');
     });

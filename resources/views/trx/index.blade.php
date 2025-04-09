@@ -77,7 +77,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         function fetchData() {
@@ -108,16 +107,13 @@
             $('#amounts-container').html(amountdetailHTML);
             $('#gmsno').html(gmsno);
         }
-
         function updateGameId(gameid) {
             console.log('Updated Game ID:', gameid);
         }
-
         function refreshData() {
             fetchData();
             setInterval(fetchData, 5000);
         }
-
         document.addEventListener('DOMContentLoaded', refreshData);
     </script>
 @endsection

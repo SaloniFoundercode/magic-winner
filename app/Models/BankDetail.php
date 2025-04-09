@@ -15,6 +15,7 @@ class BankDetail extends Model
         'bank_name',
         'ifsc_code',
         'status',
-        
+        'email',
+        'mobile',
     ];
 }

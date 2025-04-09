@@ -38,12 +38,12 @@ COALESCE(COUNT(`uid`), 0) AS totalusers ,
 
 (SELECT COALESCE( 
  (SELECT COALESCE(`multiplier`, 0) FROM `balloon_admin_result` WHERE `game_sr_num` =
- (SELECT COALESCE(MAX(`game_sr_num`), 0) + 1 FROM `balloon_result` LIMIT 1) AND `game_id` = '27' LIMIT 1 ),
+ (SELECT COALESCE(MAX(`game_sr_num`), 0) + 1 FROM `balloon_result` LIMIT 1) AND `game_id` = '25' LIMIT 1 ),
   0 )) AS adminmultiply, 
   
-  (SELECT `winning_percentage` FROM `game_settings` WHERE `id`=27) as adminpercent
+  (SELECT `winning_percentage` FROM `game_settings` WHERE `id`=25) as adminpercent
   
-   FROM balloon_bet WHERE game_id = '27' AND game_sr_num = 
+   FROM balloon_bet WHERE game_id = '25' AND game_sr_num = 
    ( SELECT COALESCE(MAX(game_sr_num), 0)+1 FROM balloon_result LIMIT 1 ) ORDER BY `amount` desc limit 1";
 
 
@@ -70,7 +70,7 @@ $res = mysqli_fetch_assoc($query);
 	     $multiplier = 0;
 	 }
 	 
-	  $tot_win =mysqli_fetch_assoc(mysqli_query($conn,"SELECT COALESCE(SUM(win), 0) AS total_win FROM balloon_bet WHERE game_sr_num = '$game_sr' AND game_id = '27'")); 
+	  $tot_win =mysqli_fetch_assoc(mysqli_query($conn,"SELECT COALESCE(SUM(win), 0) AS total_win FROM balloon_bet WHERE game_sr_num = '$game_sr' AND game_id = '25'")); 
       $total_win = $tot_win['total_win'];
 	 
 	 $aviator_setting = mysqli_fetch_assoc(mysqli_query($conn,"select * from balloon_setting where id=1"));

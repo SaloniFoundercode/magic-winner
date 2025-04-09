@@ -41,11 +41,11 @@ $query = mysqli_query($conn,$ab);
 if(mysqli_num_rows($query)=='0')
 {
 
-  $q = "INSERT INTO `balloon_result`(`color`, `game_sr_num`, `game_id`, `price`, `status`, `datetime`) VALUES ('Balloon','$game_sr','27','$multiplier','1','$datetime')";
+  $q = "INSERT INTO `balloon_result`(`color`, `game_sr_num`, `game_id`, `price`, `status`, `datetime`) VALUES ('Balloon','$game_sr','25','$multiplier','1','$datetime')";
   $query = mysqli_query($conn,$q);
 
    if($query){
-	   $get_bet_his = "SELECT * FROM `balloon_bet` where `game_sr_num` = '$game_sr' && `game_id`= 27 && `status` = 0 && `win`=0 && `result_status` = 0";
+	   $get_bet_his = "SELECT * FROM `balloon_bet` where `game_sr_num` = '$game_sr' && `game_id`= 25 && `status` = 0 && `win`=0 && `result_status` = 0";
 	   $up_query = mysqli_query($conn,$get_bet_his);
 	   
 	   if($up_query){
